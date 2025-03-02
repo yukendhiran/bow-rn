@@ -1,15 +1,16 @@
-import { Text, View } from "react-native";
+import LoginScreen from "@/screens/Auth/LoginScreen";
+import OtpScreen from "@/screens/Auth/OtpScreen";
+
 
 export default function Index() {
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-    </View>
+    <>
+      <LoginScreen />
+      {/* <OtpScreen /> */}
+    </>
+
   );
 }
+
+
+
