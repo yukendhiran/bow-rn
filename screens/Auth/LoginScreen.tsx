@@ -5,16 +5,39 @@ import { Input, InputField } from "@/components/ui/input";
 import { Text } from "@/components/ui/text";
 import { VStack } from "@/components/ui/vstack";
 import { Divider } from '@/components/ui/divider';
-
 import React from "react";
 import { useRouter, Link } from "expo-router";
 import { KeyboardAvoidingView, Platform, ScrollView } from "react-native";
+import { useAuthStore } from "@/store/auth/useAuthStore";
+import axiosInstance from "@/config/axios";
 
 
 export default function LoginScreen() {
 
     const router = useRouter();
+    const { phoneNumber, setPhoneNumber } = useAuthStore();
 
+    const handleLogin = async () => {
+
+        if (!phoneNumber || phoneNumber.length !== 10) {
+            alert("Please enter a valid 10-digit mobile number.");
+            return;
+        }
+
+        try {
+            const response = await axiosInstance.post("/send-otp", { phone_number: phoneNumber });
+
+            if (response.status === 200) {
+                alert("OTP sent successfully!");
+                router.push("/otp"); // Navigate to OTP verification screen
+            } else {
+                alert("Failed to send OTP. Please try again.");
+            }
+        } catch (error) {
+            console.error("Error sending OTP:", error);
+            alert("Something went wrong. Please try again later.");
+        }
+    };
     return (
         <KeyboardAvoidingView
             behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -39,15 +62,17 @@ export default function LoginScreen() {
                                 returnKeyType="go"
                                 className="text-2xl"
                                 maxLength={10}
+                                value={phoneNumber}
+                                onChangeText={setPhoneNumber}
                             />
                         </Input>
                     </VStack>
 
-                    <Button className="rounded-full w-full mb-8 h-16" size="xl" variant="solid" action="primary" onPress={() => router.push("/otp")}>
+                    <Button className="rounded-full w-full mb-8 h-16" size="xl" variant="solid" action="primary" onPress={handleLogin}>
                         <ButtonText className="text-typography-0 text-2xl">Send OTP</ButtonText>
                     </Button>
                 </FormControl>
             </ScrollView>
         </KeyboardAvoidingView>
-    ); 
+    );
 }
