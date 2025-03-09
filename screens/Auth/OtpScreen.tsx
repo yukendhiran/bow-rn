@@ -66,7 +66,7 @@ export default function OtpScreen() {
             console.log(response.data);
     
             if (response.status === 200) {
-                alert("OTP verified successfully!");
+                //alert("OTP verified successfully!");
                 router.replace("/(tabs)/home");
             } else {
                 alert("Invalid OTP. Please try again.");

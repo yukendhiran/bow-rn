@@ -1,30 +1,57 @@
-import { Tabs } from "expo-router";
-import { Home, User, ShoppingCart } from "lucide-react-native";
+import { NavigationContainer } from "@react-navigation/native";
+import { StatusBar } from "expo-status-bar";
+import { StyleSheet, Text, View } from "react-native";
+import { TailwindProvider } from "tailwindcss-react-native";
+import HomeScreen from "@/screens/HomeScreen";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import RestaurantScreen from "@/screens/RestaurantScreen";
+import { Provider } from "react-redux";
+import  {store } from "@/store.js";
+import BasketScreen from "@/screens/BasketScreen";
+// import {
+//   CardStyleInterpolators,
+//   TransitionPresets,
+//   TransitionSpecs,
+// } from "@react-navigation/stack";
+import PreparingScreen from "@/screens/PreparingScreen";
+import DeliveryScreen from "@/screens/DeliveryScreen";
+// import Dummy from "./screens/Dummy";
+const Stack = createNativeStackNavigator();
 
-export default function TabsLayout() {
-    return (
-        <Tabs screenOptions={{ headerShown: false }}>
-            <Tabs.Screen
-                name="home"
-                options={{
-                    title: "Home",
-                    tabBarIcon: ({ color }) => <Home color={color} />,
-                }}
+export default function App() {
+  return (
+    <NavigationContainer>
+      <Provider store={store}>
+        <TailwindProvider>
+          <Stack.Navigator>
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen name="Restaurant" component={RestaurantScreen} />
+
+            <Stack.Screen
+              name="Basket"
+              component={BasketScreen}
+              options={{
+                presentation: "modal",
+                headerShown: false,
+              }}
             />
-            <Tabs.Screen
-                name="cart"
-                options={{
-                    title: "Cart",
-                    tabBarIcon: ({ color }) => <ShoppingCart color={color} />,
-                }}
+            <Stack.Screen
+              name="Prepare"
+              component={PreparingScreen}
+              options={{
+                headerShown: false,
+              }}
             />
-            <Tabs.Screen
-                name="profile"
-                options={{
-                    title: "Profile",
-                    tabBarIcon: ({ color }) => <User color={color} />,
-                }}
+            <Stack.Screen
+              name="Delivery"
+              component={DeliveryScreen}
+              options={{
+                headerShown: false,
+              }}
             />
-        </Tabs>
-    );
+          </Stack.Navigator>
+        </TailwindProvider>
+      </Provider>
+    </NavigationContainer>
+  );
 }

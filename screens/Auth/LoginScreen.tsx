@@ -28,7 +28,7 @@ export default function LoginScreen() {
             const response = await axiosInstance.post("/send-otp", { phone_number: phoneNumber });
 
             if (response.status === 200) {
-                alert("OTP sent successfully!");
+                //alert("OTP sent successfully!");
                 router.push("/otp"); // Navigate to OTP verification screen
             } else {
                 alert("Failed to send OTP. Please try again.");
