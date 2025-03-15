@@ -61,8 +61,8 @@ const AddressSelector = () => {
       <View className="border-t border-gray-300 my-3"></View>
 
       {/* Delivery Address Selector */}
-      <Button onPress={() => setModalVisible(true)} className="w-full h-16 rounded-lg">
-        <ButtonText>{selectedAddress} ▼</ButtonText>
+      <Button onPress={() => { setModalVisible(true); fetchAddresses(); }} className="w-full h-16 rounded-lg">
+        <ButtonText>{addresses.length > 0 ? selectedAddress : "No Address Available"} ▼</ButtonText>
       </Button>
 
 
