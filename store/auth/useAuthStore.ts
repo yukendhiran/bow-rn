@@ -1,7 +1,6 @@
 import { create } from "zustand";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
 interface User {
   id: number;
   phoneNumber: string;
@@ -19,6 +18,7 @@ interface AuthState {
   login: (token: string, user: User) => Promise<void>;
   logout: () => Promise<void>;
   loadUser: () => Promise<void>;
+  setUser: (user: Partial<User>) => Promise<void>;
 }
 
 export const useAuthStore = create<AuthState>((set) => ({
@@ -46,5 +46,17 @@ export const useAuthStore = create<AuthState>((set) => ({
     if (token && user) {
       set({ token, user: JSON.parse(user) });
     }
+  },
+
+  setUser: async (updatedUser) => {
+    set((state) => {
+      if (!state.user) return {}; // Ensure user is not null before updating
+      
+      const newUser = { ...state.user, ...updatedUser }; 
+      AsyncStorage.setItem("user", JSON.stringify(newUser)); // Persist the updated user
+      
+      return { user: newUser };
+    });
+    
   },
 }));
