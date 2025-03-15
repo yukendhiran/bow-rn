@@ -11,7 +11,7 @@ import axiosInstance from "@/config/axios";
 import { useRouter } from "expo-router";
 
 export default function OtpScreen() {
-    const { phoneNumber } = useAuthStore();
+    const { phoneNumber, login } = useAuthStore();
     const [otp, setOtp] = useState("");
     const [timer, setTimer] = useState(30);
     const [canResend, setCanResend] = useState(false);
@@ -58,19 +58,40 @@ export default function OtpScreen() {
     
         setLoading(true);
     
+        // try {
+        //     const response = await axiosInstance.post("/verify-otp", {
+        //         phone_number: phoneNumber,
+        //         otp_code: enteredOtp, // Use the passed OTP instead of state
+        //     });
+        //     console.log(response.data);
+    
+        //     if (response.status === 200) {
+        //         alert("OTP verified successfully!");
+        //         router.replace("/(tabs)/home");
+        //     } else {
+        //         alert("Invalid OTP. Please try again.");
+        //     }
+        // } finally {
+        //     setLoading(false);
+        // }
+
         try {
             const response = await axiosInstance.post("/verify-otp", {
                 phone_number: phoneNumber,
-                otp_code: enteredOtp, // Use the passed OTP instead of state
+                otp_code: enteredOtp,
             });
-            console.log(response.data);
     
             if (response.status === 200) {
+                const { token, user } = response.data;
+                await login(token, user);
                 alert("OTP verified successfully!");
-                router.replace("/(tabs)/home");
+                router.replace("/(tabs)/home"); // Redirect to home
             } else {
                 alert("Invalid OTP. Please try again.");
             }
+        } catch (error) {
+            console.error("Error verifying OTP:", error);
+            alert("Something went wrong. Try again.");
         } finally {
             setLoading(false);
         }

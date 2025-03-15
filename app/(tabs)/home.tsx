@@ -1,11 +1,14 @@
-import { VStack} from "@/components/ui/vstack";
-import {  Text } from "@/components/ui/text";
+import { VStack } from "@/components/ui/vstack";
+import { Text } from "@/components/ui/text";
+import { useAuthStore } from "@/store/auth/useAuthStore";
+import Home from "@/screens/Home/HomeScreen";
 
 export default function HomeScreen() {
+    const { token } = useAuthStore();
     return (
-        <VStack className="p-10">
-            <Text className="text-2xl font-bold">Home</Text>
-            <Text>Welcome to the home screen!</Text>
-        </VStack>
+
+
+        <Home />
+
     );
 }
