@@ -52,7 +52,6 @@ export default function OtpScreen() {
     };
 
     const handleVerifyOtp = async (enteredOtp = otp) => {
-        console.log("called handleVerifyOtp with OTP:", enteredOtp);
     
         if (enteredOtp.length !== 6) return; // Ensure valid OTP length
     
@@ -128,7 +127,6 @@ export default function OtpScreen() {
                 disabled={false}
                 onTextChange={(text) => setOtp(text)}
                 onFilled={(enteredOtp) => {
-                    console.log("OTP filled:", enteredOtp);
                     handleVerifyOtp(enteredOtp); // Pass OTP directly
                 }}
                 textInputProps={{
