@@ -56,23 +56,6 @@ export default function OtpScreen() {
         if (enteredOtp.length !== 6) return; // Ensure valid OTP length
     
         setLoading(true);
-    
-        // try {
-        //     const response = await axiosInstance.post("/verify-otp", {
-        //         phone_number: phoneNumber,
-        //         otp_code: enteredOtp, // Use the passed OTP instead of state
-        //     });
-        //     console.log(response.data);
-    
-        //     if (response.status === 200) {
-        //         alert("OTP verified successfully!");
-        //         router.replace("/(tabs)/home");
-        //     } else {
-        //         alert("Invalid OTP. Please try again.");
-        //     }
-        // } finally {
-        //     setLoading(false);
-        // }
 
         try {
             const response = await axiosInstance.post("/verify-otp", {
@@ -83,7 +66,7 @@ export default function OtpScreen() {
             if (response.status === 200) {
                 const { token, user } = response.data;
                 await login(token, user);
-                alert("OTP verified successfully!");
+                // alert("OTP verified successfully!");
                 router.replace("/(tabs)/home"); // Redirect to home
             } else {
                 alert("Invalid OTP. Please try again.");

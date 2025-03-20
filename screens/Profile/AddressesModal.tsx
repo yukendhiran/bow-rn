@@ -259,8 +259,8 @@ export default function AddressesModal({ visible, onClose }: AddressesModalProps
                         <MapView
                             style={{ width: "100%", height: 400 }}
                             initialRegion={{
-                                latitude: 37.7749, // Default to San Francisco
-                                longitude: -122.4194,
+                                latitude: 12.825357, // Default to San Francisco
+                                longitude: 80.046330,
                                 latitudeDelta: 0.01,
                                 longitudeDelta: 0.01,
                             }}

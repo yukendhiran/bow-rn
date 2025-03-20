@@ -25,7 +25,7 @@ const AddressSelector = () => {
       const response = await axiosInstance.get("/addresses", {
         headers: { Authorization: `Bearer ${token}` },
       });
-      console.log(response.data);
+      // console.log(response.data);
       setAddresses(response.data);
     } catch (error) {
       console.error("Error fetching addresses", error);
