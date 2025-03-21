@@ -15,7 +15,7 @@ export default function CartScreen() {
   const router = useRouter();
   useEffect(() => {
     fetchCart(); // Fetch cart when screen loads
-  }, []);   
+  }, [cart]);
 
   const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
