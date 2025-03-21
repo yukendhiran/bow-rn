@@ -8,13 +8,14 @@ import { Text } from "@/components/ui/text";
 import { Icon, AddIcon, RemoveIcon, TrashIcon } from "@/components/ui/icon";
 import { useCartStore } from "@/store/auth/useCartStore";
 import { useRouter } from "expo-router";
+import AddressSelector from "../Home/AddressSelector";
 
 export default function CartScreen() {
   const { cart, fetchCart, increaseQuantity, decreaseQuantity, removeFromCart } = useCartStore();
   const router = useRouter();
   useEffect(() => {
     fetchCart(); // Fetch cart when screen loads
-  }, []);
+  }, []);   
 
   const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
@@ -22,6 +23,7 @@ export default function CartScreen() {
     <View className="p-4">
       <Heading size="lg" className="mb-4">Your Cart</Heading>
 
+      {/* <AddressSelector /> */}
       {cart.length === 0 ? (
         <Text className="text-center text-lg text-gray-500">Your cart is empty.</Text>
       ) : (
